@@ -18,4 +18,4 @@ jobs:
             - name: Restore dotnet tools
               run: dotnet tool restore
             - name: Run tests
-              run: make runtests make runtests
+              run: make runtests
