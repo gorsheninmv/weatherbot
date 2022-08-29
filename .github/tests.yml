@@ -1,0 +1,25 @@
+name: FAKE Build and Test
+
+on:
+    [push, pull_request]
+
+jobs:
+    build:
+
+        runs-on: ${{ matrix.os }}
+        strategy:
+            matrix:
+                os: [ubuntu-latest]
+        steps:
+            - name: Get the sources
+              uses: actions/checkout@v2
+            - name: Fetch all history for all tags and branches
+              run: git fetch --prune --unshallow
+            - name: Setup .NET 6
+              uses: actions/setup-dotnet@v1
+              with:
+                  dotnet-version: '6.0.101'
+            - name: Restore dotnet tools
+              run: dotnet tool restore
+            -name: Run tests
+              run: make runtests
